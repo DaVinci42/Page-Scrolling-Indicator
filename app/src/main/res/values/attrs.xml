@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<declare-styleable name="PageScrollingIndicator">
+		<attr name="count" format="integer"/>
+		<attr name="radius" format="float"/>
+		<attr name="distance" format="float"/>
+		<attr name="dotColor" format="color"/>
+	</declare-styleable>
+</resources>
