@@ -13,8 +13,8 @@ import android.view.View;
  */
 public class PageScrollingIndicator extends View {
 
-	private Paint mTransPaint;
-	private Paint mWhitePaint;
+	Paint mTransPaint;
+	Paint mWhitePaint;
 	int distance = 200;
 	int radius = 30;
 	int count = 3;
