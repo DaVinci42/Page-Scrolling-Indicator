@@ -35,12 +35,13 @@ public class PageScrollingIndicator extends View {
 		init();
 	}
 
-	public void setUpWithViewPager(ViewPager viewPager) {
+	public void setUpWithViewPager(final ViewPager viewPager) {
 
 		if (viewPager != null) {
 
 			viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 				@Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+					mCurrentIndex = viewPager.getCurrentItem();
 					mNewIndex = position;
 					mPageOffset = positionOffset;
 					postInvalidate();
@@ -88,11 +89,11 @@ public class PageScrollingIndicator extends View {
 		if (mPageOffset != 0) {
 			if (mCurrentIndex == mNewIndex) {
 				// sliding right
-				oldX = currentXCenter + distance * (float) Math.pow((mPageOffset * 2), 3) / 8;
+				oldX = currentXCenter + distance * mPageOffset * mPageOffset;
 				newX = currentXCenter + distance * mPageOffset;
 			} else {
 				// sliding left
-				oldX = currentXCenter - distance * (float) Math.pow(((1 - mPageOffset) * 2), 3) / 8;
+				oldX = currentXCenter - distance * (1 - mPageOffset) * (1 - mPageOffset);
 				newX = currentXCenter - distance * (1 - mPageOffset);
 			}
 			canvas.drawCircle(oldX, radius, radius, mWhitePaint);
@@ -100,8 +101,7 @@ public class PageScrollingIndicator extends View {
 			canvas.drawRect(Math.min(oldX, newX), 0, Math.max(oldX, newX), radius * 2, mWhitePaint);
 		} else {
 			// stil
-			mCurrentIndex = mNewIndex;
-			canvas.drawCircle(radius + mCurrentIndex * distance, radius, radius, mWhitePaint);
+			canvas.drawCircle(radius + mNewIndex * distance, radius, radius, mWhitePaint);
 		}
 	}
 }
